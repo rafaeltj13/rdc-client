@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+
+import ProductList from './containers/ProductList';
 
 class App extends Component {
   render() {
@@ -15,6 +17,7 @@ class App extends Component {
           <Link to="/sobre">Ir para a página sobre \o/</Link>
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <ProductList />
       </div>
     );
   }
