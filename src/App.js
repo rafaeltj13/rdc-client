@@ -14,7 +14,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <p className="App-intro">
-          <Link to="/sobre">Ir para a página sobre \o/</Link>
+          <Link to="/login">Ir para a página login \o/</Link>
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <ProductList />
