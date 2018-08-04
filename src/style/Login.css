@@ -21,3 +21,9 @@
 #submitBtn {
     text-align: right;
 }
+
+#errorMsg {
+    text-align: center;
+    color: red;
+    margin-bottom: 1rem;
+}
