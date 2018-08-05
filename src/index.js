@@ -1,29 +1,47 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './style/index.css';
+import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider } from "react-redux";
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
+import promise from 'redux-promise-middleware';
+import { createBrowserHistory } from 'history';
+import { ConnectedRouter, connectRouter, routerMiddleware } from 'connected-react-router';
+import { Switch, Route } from 'react-router-dom';
+
 import App from './App';
-import Sobre from './Sobre';
 import Login from './containers/Login';
 import ProductList from './containers/ProductList';
+import rootReducer from './reducers';
+
 import registerServiceWorker from './registerServiceWorker';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
 import { setAuthorizationToken } from './utils/setAuthorizationToken';
-import store from './store';
+
+import './style/index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+const history = createBrowserHistory();
+
+const store = createStore(
+    connectRouter(history)(rootReducer),
+    composeWithDevTools(compose(applyMiddleware(routerMiddleware(history), promise(), thunk, logger)))
+);
 
 setAuthorizationToken(localStorage.jwtToken);
 
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter>
-            <Switch>
-                <Route path="/" exact={true} component={App} />
-                <Route path="/sobre" component={Sobre} />
-                <Route path="/login" component={Login} />
-                <Route path="/productList" component={ProductList} />
-            </Switch>
-        </BrowserRouter>
+        <ConnectedRouter history={history}>
+            <div>
+                <Switch>
+                    <Route path="/" exact={true} component={App} />
+                    <Route path="/login" component={Login} />
+                    <Route path="/productList" component={ProductList} />
+                </Switch>
+            </div>
+        </ConnectedRouter>
     </Provider>
     , document.getElementById('root'));
 registerServiceWorker();

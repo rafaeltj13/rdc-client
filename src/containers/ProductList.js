@@ -1,56 +1,92 @@
 import React, { Component } from 'react';
-import { Table } from 'reactstrap';
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import { Table, Button, ButtonGroup, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { LETTERS } from '../constants';
+import '../style/ProductList.css';
+import { fetchAllProducts, fetchProducts } from '../actions/producList';
+import Loader from 'react-loader-spinner';
+
+import Navbar from '../components/NavBar';
 
 class ProductList extends Component {
-    productsMock = [
-        {
-            name: "Teste 1",
-            brand: "Testando 1",
-            price: 21.7
-        },
-        {
-            name: "Testeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee 2",
-            brand: "Testando 2",
-            price: 8
-        },
-        {
-            name: "Teste 3",
-            brand: "Testando 1",
-            price: 11.35
-        }
-    ];
+    componentWillMount() {
+        this.props.fetchAllProducts();
+    }
 
     listProduts() {
-        return this.productsMock.map((product, index) => {
-            console.log(product);
-            return(
-                <tr key={index}>
-                    <th scope="row">{index}</th>
+        return this.props.products.map((product) => {
+            return (
+                <tr key={product.id}>
+                    <th scope="row">{product.id}</th>
                     <td>{product.name}</td>
                     <td>{product.brand}</td>
-                    <td>{product.price}</td>
+                    <td>R$ {product.price.toFixed(2)}</td>
                 </tr>
             );
         })
     }
-    
+
+    loadPaginatedProducts(letter) {
+        this.props.fetchProducts(letter);
+    }
+
+    renderPagination() {
+        return LETTERS.split('').map((letter, index) => {
+            return <Button key={index} onClick={e => this.loadPaginatedProducts(letter)}>{letter}</Button>
+        });
+    }
+
+    renderLoading() {
+        if (this.props.loading) return <Loader type="Oval" color="#6c757d" height={60} width={60} />;
+    }
+
     render() {
         return (
-            <Table hover responsive>
-                <thead>
-                    <tr>
-                        <th>nº</th>
-                        <th>Produto</th>
-                        <th>Marca</th>
-                        <th>Preço</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.listProduts()}
-                </tbody>
-            </Table>
+            <div>
+                <Navbar />
+                <div className="width-90">
+                    <div>
+                        <Breadcrumb>
+                            <BreadcrumbItem><a href="">Produtos</a></BreadcrumbItem>
+                            <BreadcrumbItem active>Listagem de Produtos</BreadcrumbItem>
+                        </Breadcrumb>
+                    </div>
+                    <div id="mainContent">
+                        <ButtonGroup id="pagination">
+                            {this.renderPagination()}
+                        </ButtonGroup>
+                        <div id="spinner">
+                            {this.renderLoading()}
+                        </div>
+                        <Table hover responsive id="productTable">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Produto</th>
+                                    <th>Marca</th>
+                                    <th>Preço</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.listProduts()}
+                            </tbody>
+                        </Table>
+                    </div>
+                </div>
+            </div>
         );
     }
 }
 
-export default ProductList;
+const mapStateToProps = state => {
+    const { products, error, loading } = state.productList;
+
+    return { products, error, loading };
+};
+
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({ fetchAllProducts, fetchProducts }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

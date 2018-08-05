@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
+import { Link } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import Loader from 'react-loader-spinner';
 import { loginUser, loginChanged, passwordChanged } from '../actions/auth';
@@ -48,6 +49,7 @@ class Login extends Component {
                         <div id="errorMsg">
                             {this.props.error}
                         </div>
+                        <span>Não tem uma conta? <Link to="/login">Crie uma!</Link></span>
                         <div id="submitBtn">
                             {this.renderButton()}
                         </div>

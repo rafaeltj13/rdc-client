@@ -23,7 +23,7 @@
 }
 
 #errorMsg {
-    text-align: center;
+    text-align: left;
     color: red;
     margin-bottom: 1rem;
 }

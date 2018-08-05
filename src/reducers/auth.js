@@ -5,6 +5,7 @@ const INITIAL_STATE = {
     password: '',
     error: '',
     token: '',
+    userName: '',
     loading: false
 };
 
@@ -18,12 +19,12 @@ export default (state = INITIAL_STATE, action) =>
         case ActionTypes.LOGIN_USER:
             return { ...state, loading: true, error: '' };
         case ActionTypes.LOGIN_USER_SUCCESS:
-            return { ...state, loading: false, error: '' };
+            return { ...state, userName: action.payload, loading: false, error: '' };
         case ActionTypes.LOGIN_USER_FAIL:
             return { ...state, loading: false,
                     error: 'Falha na autenticação. Tente novamente.', login: '', password: '' };
         case ActionTypes.LOGOUT:
-            return { ...state, user: null, token: '' };
+            return { ...state, userName: '', token: '' };
         default:
             return state;
     }

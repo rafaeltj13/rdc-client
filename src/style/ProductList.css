@@ -1,0 +1,19 @@
+.width-90 {
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 2rem;
+}
+
+#mainContent {
+    text-align: center;
+}
+
+#pagination {
+    padding: 1rem;
+    text-align: center;
+}
+
+#spinner {
+    text-align: center;
+}
