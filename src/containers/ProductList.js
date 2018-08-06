@@ -19,9 +19,9 @@ class ProductList extends Component {
             return (
                 <tr key={product.id}>
                     <th scope="row">{product.id}</th>
-                    <td>{product.name}</td>
-                    <td>{product.brand}</td>
-                    <td>R$ {product.price.toFixed(2)}</td>
+                    <td className="text-align-left">{product.name}</td>
+                    <td className="text-align-left">{product.brand}</td>
+                    <td className="text-align-left">R$ {product.price.toFixed(2)}</td>
                 </tr>
             );
         })
@@ -49,7 +49,7 @@ class ProductList extends Component {
                     <div>
                         <Breadcrumb>
                             <BreadcrumbItem><a href="">Produtos</a></BreadcrumbItem>
-                            <BreadcrumbItem active>Listagem de Produtos</BreadcrumbItem>
+                            <BreadcrumbItem active>Tabela de Preços</BreadcrumbItem>
                         </Breadcrumb>
                     </div>
                     <div id="mainContent">
@@ -59,13 +59,13 @@ class ProductList extends Component {
                         <div id="spinner">
                             {this.renderLoading()}
                         </div>
-                        <Table hover responsive id="productTable">
+                        <Table bordered hover responsive id="productTable">
                             <thead>
                                 <tr>
                                     <th>Id</th>
                                     <th>Produto</th>
-                                    <th>Marca</th>
-                                    <th>Preço</th>
+                                    <th className="text-align-left">Marca</th>
+                                    <th className="text-align-left">Preço</th>
                                 </tr>
                             </thead>
                             <tbody>

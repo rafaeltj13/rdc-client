@@ -28,6 +28,12 @@ export const passwordChanged = (pass) => {
 export const loginUser = (login, password) => {
     return (dispatch) => {
         dispatch({ type: ActionTypes.LOGIN_USER });
+
+        if(!login || !password){
+            loginUserFail(dispatch);
+            return; 
+        }
+
         axios.post(LOGIN_URL, { login, password })
             .then(function (response) {
                 const token = response.data.accessToken;

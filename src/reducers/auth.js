@@ -24,7 +24,7 @@ export default (state = INITIAL_STATE, action) =>
             return { ...state, loading: false,
                     error: 'Falha na autenticação. Tente novamente.', login: '', password: '' };
         case ActionTypes.LOGOUT:
-            return { ...state, userName: '', token: '' };
+            return { ...state, userName: '', token: '',login: '', password: '' };
         default:
             return state;
     }

@@ -11,6 +11,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import App from './App';
 import Login from './containers/Login';
+import Register from './containers/Register';
 import ProductList from './containers/ProductList';
 import rootReducer from './reducers';
 
@@ -38,6 +39,7 @@ ReactDOM.render(
                 <Switch>
                     <Route path="/" exact={true} component={App} />
                     <Route path="/login" component={Login} />
+                    <Route path="/register" component={Register} />
                     <Route path="/productList" component={ProductList} />
                 </Switch>
             </div>

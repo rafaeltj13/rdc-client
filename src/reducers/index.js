@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import AuthReducer from './auth';
-import ProductList from './productList';
+import RegisterReducer from './register';
+import ProductListReducer from './productList';
 
 export default combineReducers({
     auth: AuthReducer,
-    productList: ProductList
+    productList: ProductListReducer,
+    register: RegisterReducer
 });

@@ -5,6 +5,10 @@
     padding-top: 2rem;
 }
 
+.text-align-left {
+    text-align: left;
+}
+
 #mainContent {
     text-align: center;
 }
